@@ -1,6 +1,11 @@
-provider "aws" {
-  region = var.region
-}
+# --- root/main.tf --- 
+
+#Deploy Networking Resources
+
+# module "compute" {
+#   source = "../../modules/compute"
+# }
+
 
 resource "aws_vpc" "vpc" {
   cidr_block           = var.vpc-cidr
@@ -33,7 +38,8 @@ resource "aws_route_table_association" "public-subnet-route-table-association" {
 }
 
 resource "aws_key_pair" "web" {
-  public_key = file(pathexpand(var.public_key))
+  # public_key = file(pathexpand(var.public_key))
+  public_key = file("${var.environment}_id_rsa.pub")
 }
 
 resource "aws_instance" "web-instance" {
