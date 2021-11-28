@@ -6,17 +6,20 @@
 The aim is to have a solution to the following infrastructure issues - 
 
 1. The EC2 instance running Nginx went down over the weekend and we had an outage, it's been decided that we need a solution that is more resilient. Please implement a solution that demonstrates best practice resilience within a single region.
-# Solution :
+
+Solution :
   -- Resiliance within single region..To Be Implemented
 
 
 2. We would like to be able to run the same stack closer to our customers in the US. Please build the same stack in the us-east-1 (Virginia) region. Note that Virginia has a different number of availability zones which we would like to take advantage of for better resilience. As for a CIDR block for the VPC use whatever you feel like, providing it's compliant with RFC-1918 and does not overlap with the dublin network.
-# Solution :
+
+Solution :
   -- Replicating stack in us-east-1 with use of availabiliry zones from region for better resilliance. 
   -- CDR block with RFC-1918 compliant..To Be Implemented
 
 3. We are looking to improve the security of our network and have decided we need a bastion server to avoid logging on directly to our servers. Add a bastion server, the bastion should be the only route to SSH onto servers in the VPC.
-# Solution :
+
+Solution :
  -- Baston host to restict logging directly into server
  -- Baston supporting SSH only route in the VPC..To Be Implemented
 
@@ -43,6 +46,20 @@ See docs here : https://learn.hashicorp.com/tutorials/terraform/install-cli
 > setup aws environment variables.
 aws configure
 
+## Generate Pub key 
+Public key can be gererated using aws or any 3rd party tool. I used ssh-keygen from ubuntu subsystem terminal on windows. Steps -  
+
+```
+somnath@LAPTOP-:~$ ssh-keygen -m PEM
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/somnath/.ssh/id_rsa): test_id_rsa.pub
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in test_id_rsa.pub
+Your public key has been saved in test_id_rsa.pub.pub
+The key fingerprint is: *****
+```
+Repeate above for bastion host as well and copy files in root directory of project as code is refering to same location. 
 ## Terraform backend
 SetUp terraform cloud. Create organization(should be unique and not already in use). 
 
@@ -135,39 +152,46 @@ terraform graph
 ```
 Folder structure is followed as per standards suggested by terraform
 https://www.terraform.io/docs/language/modules/develop/structure.html
-
-
 $ tree complete-module/
-.
+
+```
+
 ├── README.md
 ├── ...
-├── environment/
-│   ├── test/
-│   │   ├── backends.tf
-│   │   ├── main.tf
-│   │   ├── providers.tf
-│   │   ├── terraform.tfvars
-│   │   ├── test_id_rsa_pub
-│   │   ├── variables.tf
+├── environment/                     # folder containing different environment configurations
+│   ├── test/                        # test environment folder
+│   │   ├── backends.tf              # Backend configuration
+│   │   ├── main.tf                  # main terraform file. this has all the definitions of the infrastructure that then call the different modules
+│   │   ├── providers.tf             # file used to set up the terraform providers used
+│   │   ├── terraform.tfvars         # To define variables and initiate
+│   │   ├── test_id_rsa_pub          # Public key for EC2 instance
+│   │   ├── test_bastion_id_rsa_pub  # Public Key for bastion host
+│   │   ├── variables.tf             # variables definitions used in the main.tf
 │   ├── .../
 │   ├── us-test/
 │   │   ├── 
-├── modules/
+├── modules/                         # module folder for compute related functions
 │   ├── compute
 │   │   ├── README.md
-│   │   ├── variables.tf
-│   │   ├── main.tf
-│   │   ├── outputs.tf
-│   ├── network
-│   │   ├── README.md
-│   │   ├── variables.tf
-│   │   ├── main.tf
-│   │   ├── outputs.tf
+│   │   ├── variables.tf             # variables used to pass info from /environment/<env>/main.tf to the compute/main.tf file
+│   │   ├── main.tf                  # main file for the compute module. this has multiple functions that are called from the root main.tf and create compute components
+│   │   ├── outputs.tf               # output variable definitions
 │   ├── database
 │   │   ├── README.md
 │   │   ├── variables.tf
 │   │   ├── main.tf
 │   │   ├── outputs.tf
+│   ├── loadbalancing
+│   │   ├── README.md                # main file for setting up networking components.
+│   │   ├── variables.tf             # variables used to pass info from /environment/<env>/main.tf to the loadbalancing/main.tf file
+│   │   ├── main.tf
+│   │   ├── outputs.tf               # output values from loadbalancing module. this means that info can be referred to from / environment/<env>/main.tfand other modules.
+│   ├── network
+│   │   ├── README.md                # main file for setting up networking components.
+│   │   ├── variables.tf             # variables used to pass info from /environment/<env>/main.tf to the networking/main.tf file
+│   │   ├── main.tf
+│   │   ├── outputs.tf               # output values from networking module. this means that info can be referred to from /environment/<env>/main.tfand other modules.
 
+```
 # Config developed by Somnath Dhadage
 somnathdhadage@gmail.com in conjunction with origional ECS Digital Tech Test Code
