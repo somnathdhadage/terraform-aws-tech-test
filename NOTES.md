@@ -7,9 +7,8 @@ The aim is to have a solution to the following infrastructure issues -
 ## Assignment_1 
 ### Problem Statement
 The EC2 instance running Nginx went down over the weekend and we had an outage, it's been decided that we need a solution that is more resilient. Please implement a solution that demonstrates best practice resilience within a single region.
-
 ### Solution :
-  -- Resiliance within single region..To Be Implemented
+-- We have added autoscalling for EC2 instance which will maintain number active instances. Created template with configuration same as desired. Solution implemented in eu-west-1 region.
 
 ## Assignment_2
 ### Problem Statement
