@@ -15,18 +15,17 @@ resource "aws_route_table" "public-subnet-route-table" {
   vpc_id = aws_vpc.vpc.id
 }
 
-
+#  "Network module to create network specific components"
 module "network" {
-  description = "Network module to create network specific components"
-  source      = "../../modules/network"
-  vpc_id      = aws_vpc.vpc.id
+  source = "../../modules/network"
+  vpc_id = aws_vpc.vpc.id
   #igwid          = var.igwid
   subnet_id      = aws_subnet.public-subnet.id
   route_table_id = aws_route_table.public-subnet-route-table.id
 }
 
+#  Component creates EC2 instance with nginx component installed with user provided image"
 resource "aws_instance" "web-instance" {
-  description                 = "EC2 instance with nginx component installed with user provided image"
   ami                         = var.image_id
   instance_type               = "t2.small"
   vpc_security_group_ids      = [module.network.vpc_security_group_ids]
@@ -42,10 +41,8 @@ EOF
 }
 
 
-
-# # refactor later once solution implemented
+# Compute module used to create compute resourses 
 module "compute" {
-  description            = "Compute module to create compute components in a system"
   source                 = "../../modules/compute"
   image_id               = var.image_id
   environment            = var.environment

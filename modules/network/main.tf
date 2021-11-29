@@ -1,11 +1,12 @@
 # ---- network/main.tf -----
 
+ #Component to create a VPC Internet Gateway
 resource "aws_internet_gateway" "igw" {
-  description = "Component used to create a VPC Internet Gateway"
   vpc_id = var.vpc_id
 }
+
+#  Component used to create an association between a route table and a subnet
 resource "aws_route_table_association" "public-subnet-route-table-association" {
-  description = "Component used to create an association between a route table and a subnet"
   subnet_id      = var.subnet_id
   route_table_id = var.route_table_id
 }

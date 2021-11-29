@@ -10,16 +10,22 @@ resource "aws_launch_template" "launchtemplate" {
   placement {
     availability_zone = "${var.region}a"
   }
-  user_data                   = <<EOF
-  imageid = var.
+  user_data       = "${base64encode(data.template_file.nginxApp.rendered)}"
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+data "template_file" "nginxApp" {
+  template = <<EOF
 #!/bin/sh
 yum install -y nginx
 service nginx start
 EOF
 }
 
+#"Autoscalling component to maintain number of active instances in case of any disaster"
 resource "aws_autoscaling_group" "asg-tech-test" {
-  description = "Autoscalling component to maintain number of active instances in case of any disaster"
   #availability_zones = ["${var.region}b"]
   desired_capacity   = 1
   max_size           = 1
@@ -33,7 +39,7 @@ resource "aws_autoscaling_group" "asg-tech-test" {
 
 }
 
+#Component to provide Public key security credentials to prove identity when connecting to an Amazon EC2 instance"
 resource "aws_key_pair" "web" {
-  description = "Public key security credentials to prove identity when connecting to an Amazon EC2 instance"
   public_key = file("${var.environment}_id_rsa.pub")
 }
