@@ -43,3 +43,4 @@ resource "aws_autoscaling_group" "asg-tech-test" {
 resource "aws_key_pair" "web" {
   public_key = file("${var.environment}_id_rsa.pub")
 }
+

@@ -56,3 +56,4 @@ module "compute" {
 resource "aws_key_pair" "web" {
   public_key = file("${var.environment}_id_rsa.pub")
 }
+
