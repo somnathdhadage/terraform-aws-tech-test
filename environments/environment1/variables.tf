@@ -1,4 +1,4 @@
-# --- /environment/prod/variables.tf ---
+# --- /environment/variables.tf ---
 
 variable "region" {
   default = "eu-west-1"

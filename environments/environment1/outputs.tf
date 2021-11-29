@@ -1,4 +1,4 @@
-#---- compute/outputs.tf ---
+#---- root/outputs.tf ---
 output "web_domain" {
   value = aws_instance.web-instance.public_dns
 }

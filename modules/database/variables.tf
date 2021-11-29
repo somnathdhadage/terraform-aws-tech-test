@@ -1,2 +1,2 @@
-# --- compute/variables.tf ---
+# --- database/variables.tf ---
 variable "instance_type" {}

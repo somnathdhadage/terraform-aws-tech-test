@@ -17,14 +17,16 @@ resource "aws_route_table" "public-subnet-route-table" {
 
 
 module "network" {
-  source         = "../../modules/network"
-  vpc_id         = aws_vpc.vpc.id
+  description = "Network module to create network specific components"
+  source      = "../../modules/network"
+  vpc_id      = aws_vpc.vpc.id
   #igwid          = var.igwid
   subnet_id      = aws_subnet.public-subnet.id
   route_table_id = aws_route_table.public-subnet-route-table.id
 }
 
 resource "aws_instance" "web-instance" {
+  description                 = "EC2 instance with nginx component installed with user provided image"
   ami                         = var.image_id
   instance_type               = "t2.small"
   vpc_security_group_ids      = [module.network.vpc_security_group_ids]
@@ -39,14 +41,11 @@ service nginx start
 EOF
 }
 
-resource "aws_key_pair" "web" {
-  public_key = file("${var.environment}_id_rsa.pub")
-}
-
 
 
 # # refactor later once solution implemented
 module "compute" {
+  description            = "Compute module to create compute components in a system"
   source                 = "../../modules/compute"
   image_id               = var.image_id
   environment            = var.environment
@@ -60,3 +59,7 @@ module "compute" {
 }
 
 
+
+resource "aws_key_pair" "web" {
+  public_key = file("${var.environment}_id_rsa.pub")
+}
