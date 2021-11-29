@@ -8,7 +8,7 @@ resource "aws_launch_template" "launchtemplate" {
   vpc_security_group_ids      = [var.vpc_security_group_ids]
   key_name                    = aws_key_pair.web.key_name
   placement {
-    availability_zone = "${var.region}a"
+    availability_zone = "${var.region}b"
   }
   user_data       = "${base64encode(data.template_file.nginxApp.rendered)}"
   lifecycle {
@@ -27,8 +27,8 @@ EOF
 #"Autoscalling component to maintain number of active instances in case of any disaster"
 resource "aws_autoscaling_group" "asg-tech-test" {
   #availability_zones = ["${var.region}b"]
-  desired_capacity   = 1
-  max_size           = 1
+  desired_capacity   = 2
+  max_size           = 2
   min_size           = 1
   vpc_zone_identifier  = var.vpc_zone_identifier
 

@@ -106,12 +106,16 @@ Retrieved token for user somnathdhadage
                                                                -
 
                         
+Once login success 
 ## Initialise the terraform environment
 run the following in the root of the appropriate environment folder ie Test Assignment/environments/<env>/. folder.
 ```
 terraform init
 ```
+Once login and terraform init gets successful. Login to terraform cloud to check if workspace got created. 
+Do change settings for Execute mode (Your Organization > Workspace > <environment> > Settings > General > Execution Mode)
 
+"Change it from Remote to Local"
 ## Validate the terraform code
 This is a really useful command that validates the terraform code is correct
 ```

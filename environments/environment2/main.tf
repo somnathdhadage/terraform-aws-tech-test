@@ -8,10 +8,10 @@ resource "aws_vpc" "vpc" {
 resource "aws_subnet" "public-subnet" {
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = var.subnet-cidr-public
-  availability_zone = "${var.region}a"
+  availability_zone = "${var.region}b"
 }
 
-#  "Network module to create network specific components"
+#  Network module to create network specific components
 module "network" {
   source = "../../modules/network"
   vpc_id = aws_vpc.vpc.id
@@ -20,7 +20,7 @@ module "network" {
   route_table_id = var.route_table_id
 }
 
-#  Component creates EC2 instance with nginx component installed with user provided image"
+# Component creates EC2 instance with nginx component installed with user provided image"
 resource "aws_instance" "web-instance" {
   ami                         = var.image_id
   instance_type               = "t2.small"
@@ -56,3 +56,5 @@ module "compute" {
 resource "aws_key_pair" "web" {
   public_key = file("${var.environment}_id_rsa.pub")
 }
+
+

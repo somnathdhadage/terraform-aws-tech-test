@@ -1,4 +1,4 @@
 #---- compute/outputs.tf ---
-output "launchtemplate" {
+output "launchtemplateid" {
   value = aws_launch_template.launchtemplate.id
 }

@@ -1,7 +1,7 @@
-# --- /environment/variables.tf ---
+# --- /environment2/variables.tf ---
 
 variable "region" {
-  default = "eu-west-1"
+  default = "us-east-1"
 }
 
 variable "access_ip" {}
@@ -16,7 +16,9 @@ variable "subnet-cidr-public" {
 
 }
 
-variable "image_id" {}
+variable "image_id" {
+  default = "ami-0a176d9d7b597cc2c"
+}
 
 variable "launchtemplateid" {
   default = ""
