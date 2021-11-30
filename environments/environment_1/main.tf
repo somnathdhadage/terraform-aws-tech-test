@@ -51,8 +51,6 @@ module "compute" {
   vpc_zone_identifier    = [aws_subnet.public-subnet.id]
 }
 
-
-
 resource "aws_key_pair" "web" {
   public_key = file("${var.environment}_id_rsa.pub")
 }

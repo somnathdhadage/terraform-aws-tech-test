@@ -2,7 +2,7 @@
 
 terraform {
   backend "remote" {
-    organization     = "ECSDigitalTest"
+    organization = "ECSDigitalTest"
     workspaces {
       name = "ecs-test-environment2"
       #name ="ecs-test" 
