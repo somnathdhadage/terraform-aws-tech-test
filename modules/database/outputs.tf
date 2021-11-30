@@ -1,1 +1,1 @@
-#---- compute/outputs.tf ---
+#---- database/outputs.tf ---

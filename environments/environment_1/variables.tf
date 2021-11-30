@@ -1,4 +1,4 @@
-# --- /environment/prod/variables.tf ---
+# --- /environment/variables.tf ---
 
 variable "region" {
   default = "eu-west-1"
@@ -32,6 +32,6 @@ variable "igwid" {
 # variable "subnet_id" {
 #   default = ""
 # }
-# variable "route_table_id" {
-#   default = ""
-# }
+variable "route_table_id" {
+  default = ""
+}

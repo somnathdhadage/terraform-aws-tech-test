@@ -6,7 +6,7 @@ provider "aws" {
   region = "eu-west-1"
   default_tags {
     tags = {
-      Environment = var.environment
+      description = "User defined tag for components"
       Project     = "tech-test"
       Name        = "Somnath Dhadage"
     }
