@@ -151,7 +151,7 @@ $ tree complete-module/
 ```
 
 ├── environments/                    # folder containing different environment configurations
-│   ├── environment1/                # environment folder for assignment1
+│   ├── environment_1/               # environment folder for assignment1
 │   │   ├── backends.tf              # Backend configuration
 │   │   ├── main.tf                  # main terraform file. this has all the definitions of the infrastructure that then call the different modules
 │   │   ├── providers.tf             # file used to set up the terraform providers used
@@ -159,25 +159,24 @@ $ tree complete-module/
 │   │   ├── test_id_rsa_pub          # Public key for EC2 instance
 │   │   ├── test_bastion_id_rsa_pub  # Public Key for bastion host
 │   │   ├── variables.tf             # variables definitions used in the main.tf
-│   ├── .../
-│   ├── environment2/                # environment folder for assignment2
+│   ├── environment_2/               # environment folder for assignment2
+│   │   ├── backends.tf              # Backend configuration
+│   │   ├── main.tf                  # main terraform file. this has all the definitions of the infrastructure that then call the different modules
+│   │   ├── providers.tf             # file used to set up the terraform providers used
+│   │   ├── terraform.tfvars         # To define variables and initiate
+│   │   ├── test_id_rsa_pub          # Public key for EC2 instance
+│   │   ├── test_bastion_id_rsa_pub  # Public Key for bastion host
+│   │   ├── variables.tf             # variables definitions used in the main.tf
 │   │   ├── 
 ├── modules/                         # module folder for compute related functions
 │   ├── compute
-│   │   ├── README.md
 │   │   ├── variables.tf             # variables used to pass info from /environments/<env>/main.tf to the compute/main.tf file
 │   │   ├── main.tf                  # main file for the compute module. this has multiple functions that are called from the root main.tf and create compute components
 │   │   ├── outputs.tf               # output variable definitions
 │   ├── database
-│   │   ├── README.md
-│   │   ├── variables.tf
-│   │   ├── main.tf
+│   │   ├── variables.tf             # variables used to pass info from /environments/<env>/main.tf to the database/main.tf file
+│   │   ├── main.tf                  # main file for the database module. this has multiple functions that are called from the root main.tf and create database components
 │   │   ├── outputs.tf
-│   ├── loadbalancing
-│   │   ├── README.md                # main file for setting up networking components.
-│   │   ├── variables.tf             # variables used to pass info from /environments/<env>/main.tf to the loadbalancing/main.tf file
-│   │   ├── main.tf
-│   │   ├── outputs.tf               # output values from loadbalancing module. this means that info can be referred to from / environment/<env>/main.tfand other modules.
 │   ├── network
 │   │   ├── README.md                # main file for setting up networking components.
 │   │   ├── variables.tf             # variables used to pass info from /environments/<env>/main.tf to the networking/main.tf file

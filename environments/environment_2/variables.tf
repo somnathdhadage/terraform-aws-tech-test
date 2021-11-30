@@ -1,4 +1,4 @@
-# --- /environment2/variables.tf ---
+# --- /environment_2/variables.tf ---
 
 variable "region" {
   default = "us-east-1"

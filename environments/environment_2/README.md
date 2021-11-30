@@ -18,4 +18,5 @@ We are looking for a Python3 Lambda function which writes the state of the insta
  -- Python script added to write instance status into DynamoDB
  -- Cron expression added to schedular for every one hour
  https://crontab.guru/#30_*_*_*_*
- -- TTL time set for 86400 seconds which is equivalent to 1 day. 
+ -- TTL time set for 86400 seconds which is equivalent to 1 day.
+ Note : Before running assignment please add additional policies to test-root user (CloudWatch/CloudWatchEvents). 

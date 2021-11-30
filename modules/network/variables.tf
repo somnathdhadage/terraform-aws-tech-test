@@ -1,4 +1,4 @@
-# --- compute/variables.tf ---
+# --- network/variables.tf ---
 
 variable "vpc_id" {}
 
