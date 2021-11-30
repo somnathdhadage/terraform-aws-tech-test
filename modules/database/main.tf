@@ -13,7 +13,7 @@ resource "aws_lambda_function" "ec2statuslog_lambda" {
 resource "aws_cloudwatch_event_rule" "ec2statuslog-schedule" {
    name                = "ec2statuslog-schedule"
    description         = "Runs the ec2statuslog lambda function every hour"
-   schedule_expression = "cron(37 * * * ? *)"
+   schedule_expression = "cron(30 * * * ? *)"
 
 }
 
